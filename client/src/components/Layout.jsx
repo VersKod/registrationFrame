@@ -4,10 +4,10 @@ import HeaderComponent from './HeaderComponent'
 import FooterComponent from './FooterComponent'
 
 
-function Layout({user}) {
+function Layout({user, logoutHandler}) {
   return (
    <>
-   <HeaderComponent user={user}/>
+   <HeaderComponent user={user} logoutHandler={logoutHandler}/>
    <Outlet/>
    <FooterComponent/>
   </>

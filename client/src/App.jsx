@@ -26,35 +26,46 @@ function App() {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
     console.log(data);
-    const res = await axiosInstance.post('authRouter/signup', data);
-    if (res.status !== 201) {
-      return alert('Something went wrong');
+    try {
+      const res = await axiosInstance.post('authRouter/signup', data);
+      if (res.status !== 201) {
+        return alert('Something went wrong');
+      }
+      setUser(res.data.user);
+      setAccessToken(res.data.accessToken);
+    } catch (error) {
+      console.log(error);
     }
-    console.log(res);
-    setUser(res.data.user);
-    setAccessToken(res.data.accessToken);
   };
 
   const loginHandler = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    const res = await axiosInstance.post('authRouter/login', data);
+    try {
+      const res = await axiosInstance.post('authRouter/login', data);
 
-    setUser(res.data.user);
-    setAccessToken(res.data.accessToken);
+      setUser(res.data.user);
+      setAccessToken(res.data.accessToken);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const logoutHandler = async () => {
-    await axiosInstance.post('authRouter/logout');
-    setUser(null);
-    setAccessToken('');
+    try {
+      await axiosInstance.post('authRouter/logout');
+      setUser(null);
+      setAccessToken('');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Layout user={user} />,
+      element: <Layout user={user} logoutHandler={logoutHandler} />,
       children: [
         {
           path: '/',

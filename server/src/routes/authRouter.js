@@ -61,12 +61,12 @@ authRouter.post('/login', async (req, res) => {
   }
 });
 
-authRouter.get('/logout', async (req, res) => {
+authRouter.post('/logout', async (req, res) => {
   try {
     return res.clearCookie('refreshToken').sendStatus(200);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ text: 'Internal server error' });
+    return res.status(500).json({ text: 'Internal server error' });
   }
 })
 

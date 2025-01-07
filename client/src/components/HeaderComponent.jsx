@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function HeaderComponent({ user,  }) {
+function HeaderComponent({ user,  logoutHandler}) {
   return (
     <header>
       <img
@@ -25,7 +25,7 @@ function HeaderComponent({ user,  }) {
             <li>Login</li>
           </Link>
         </ul>
-        <button>Logout</button>
+        <button onClick={logoutHandler}>Logout</button>
       </nav>
     </header>
   );
